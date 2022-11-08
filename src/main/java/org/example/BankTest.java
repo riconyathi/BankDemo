@@ -2,7 +2,7 @@ package org.example;
 
 public class BankTest {
     private static Bank bank = new Bank();
-    private static int acct = bank.newAccount();
+    private static int acct = bank.newAccount(true);
 
     public static void main(String[] args) {
         verifyBalance("initial amount", 0);
