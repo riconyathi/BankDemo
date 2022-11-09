@@ -14,10 +14,14 @@ public class Bank {
         this.nextacct = nextacct;
     }
 
-    public int newAccount(boolean isforeign){
+    public int newAccount(int type, boolean isforeign){
         int acctnum = nextacct++;
-        BankAccount ba = new BankAccount(acctnum);
-        ba.setIsforeign(isforeign);
+        BankAccount ba;
+        if(type == 1)
+            ba = new SavingsAccount(acctnum);
+        else
+            ba =  new CheckingAccount(acctnum);
+        ba.setForeign(isforeign);
         accounts.put(acctnum,ba);
         return acctnum;
     }
@@ -29,7 +33,7 @@ public class Bank {
 
     public void deposit(int acctnum, int amt) {
         BankAccount ba = accounts.get(acctnum);
-        if(ba.isIsforeign())
+        if(ba.isForeign())
             writeToLog(acctnum, amt, new Date());
         ba.deposit(amt);
     }
@@ -39,7 +43,7 @@ public class Bank {
 
     public void setForeign(int acctnum, boolean isforeign){
         BankAccount ba  = accounts.get(acctnum);
-        ba.setIsforeign(isforeign);
+        ba.setForeign(isforeign);
     }
 
     public boolean authorizeLoan(int acctnum, int loanamt){
@@ -57,8 +61,9 @@ public class Bank {
         return result;
     }
     public void addInterest(){
-                for(BankAccount ba: accounts.values())
-                    ba.addInterest();
+       for(BankAccount ba: accounts.values())
+          ba.addInterest();
+
     }
 
 }
