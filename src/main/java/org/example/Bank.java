@@ -1,13 +1,18 @@
 package org.example;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
 public class Bank {
-    private HashMap<Integer, BankAccount> accounts = new HashMap<>();
+    private HashMap<Integer, BankAccount> accounts;
 
-    private double rate = 0.01;
-    private int nextacct = 0;
+   private int nextacct;
+
+    public Bank(HashMap<Integer, BankAccount> accounts, int nextacct) {
+        this.accounts = accounts;
+        this.nextacct = nextacct;
+    }
 
     public int newAccount(boolean isforeign){
         int acctnum = nextacct++;
@@ -24,8 +29,12 @@ public class Bank {
 
     public void deposit(int acctnum, int amt) {
         BankAccount ba = accounts.get(acctnum);
-        int balance = ba.getBalance();
-        ba.setBalance(balance+amt);
+        if(ba.isIsforeign())
+            writeToLog(acctnum, amt, new Date());
+        ba.deposit(amt);
+    }
+
+    private void writeToLog(int acctnum, int amt, Date date) {
     }
 
     public void setForeign(int acctnum, boolean isforeign){
@@ -35,8 +44,7 @@ public class Bank {
 
     public boolean authorizeLoan(int acctnum, int loanamt){
         BankAccount ba = accounts.get(acctnum);
-        int balance = ba.getBalance();
-        return balance >= loanamt/2;
+        return ba.hasEnoughCollateral(loanamt);
     }
 
     @Override
@@ -44,17 +52,13 @@ public class Bank {
         Set<Integer> accts = accounts.keySet();
         String result = "The bank has "+ accts.size() + " accounts.";
         for (BankAccount ba : accounts.values()) {
-            result += "\n\tBank account " + ba.getAcctnum() + ": balance=" + ba.getBalance() +
-                    " , is " + (ba.isIsforeign() ? "foreign" : "domestic");
+            result += "\n\t" + ba.toString();
         }
         return result;
     }
     public void addInterest(){
-                for(BankAccount ba: accounts.values()){
-            int balance = ba.getBalance();
-            balance += (int) (balance * rate);
-            ba.setBalance(balance);
-        }
+                for(BankAccount ba: accounts.values())
+                    ba.addInterest();
     }
 
 }

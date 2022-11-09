@@ -5,9 +5,14 @@ import java.util.Set;
 
 public class BankClient {
     private int current = -1;
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
     private boolean done = false;
-    private Bank bank = new Bank();
+    private Bank bank;
+
+    public BankClient(Scanner scanner, Bank bank) {
+        this.scanner = scanner;
+        this.bank = bank;
+    }
 
     public void run(){
         scanner = new Scanner(System.in);

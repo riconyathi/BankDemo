@@ -1,7 +1,12 @@
 package org.example;
 
+import java.util.HashMap;
+
 public class BankTest {
-    private static Bank bank = new Bank();
+
+    private static HashMap<Integer, BankAccount> accounts = new HashMap<>();
+    private static Bank bank = new Bank(accounts, 0);
+//    private static Bank bank = new Bank();
     private static int acct = bank.newAccount(true);
 
     public static void main(String[] args) {
