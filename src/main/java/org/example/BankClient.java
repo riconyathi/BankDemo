@@ -47,7 +47,7 @@ public class BankClient {
 
     private void newAccount() {
         boolean isforeign = requestForeign();
-        System.out.println("Account type 1=Savings 2=Checking ");
+        System.out.println("Account type 1=Savings, 2=Checking, 3=interest checking ");
         int type = scanner.nextInt();
         current = bank.newAccount(type,isforeign);
         System.out.println("Your new account number is "+ current);

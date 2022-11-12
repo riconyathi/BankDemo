@@ -1,39 +1,11 @@
 package org.example;
 
-public class CheckingAccount implements BankAccount{
-    private double rate = 0.01;
-    private int acctnum;
-    private int balance = 0;
-    private boolean isforeign = false;
+public abstract class CheckingAccount extends AbstractBankAccount{
 
-    public CheckingAccount(int acctnum) {
-        this.acctnum = acctnum;
+    protected CheckingAccount(int acctnum) {
+        super(acctnum);
     }
 
-
-    @Override
-    public int getAcctNum() {
-        return acctnum;
-    }
-
-    @Override
-    public int getBalance() {
-        return balance;
-    }
-
-    @Override
-    public boolean isForeign() {
-        return isforeign;
-    }
-
-    @Override
-    public void setForeign(boolean isforeign) {
-        this.isforeign = isforeign;
-    }
-    @Override
-    public void deposit(int amt){
-        balance += amt;
-    }
 
     @Override
     public boolean hasEnoughCollateral(int loanamt){
@@ -42,15 +14,9 @@ public class CheckingAccount implements BankAccount{
     }
 
     @Override
-    public void addInterest() {
+    public abstract void addInterest();
 
-    }
-
-    public String toString(){
-        return "Checking account "+ acctnum + ": balance="
-                + balance + " , is "
-                + (isforeign ? "foreign" : " domestic");
-    }
+    public abstract String toString();
 
     @Override
     public int compareTo(BankAccount ba) {

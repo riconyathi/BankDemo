@@ -1,43 +1,16 @@
 package org.example;
 
-public class SavingsAccount implements BankAccount{
+import java.util.Objects;
+
+public class SavingsAccount extends AbstractBankAccount{
     private double rate = 0.01;
-    private int acctnum;
-    private int balance = 0;
+
     private boolean isforeign = false;
 
     public SavingsAccount(int acctnum){
-        this.acctnum = acctnum;
+        super(acctnum);
     }
 
-
-    public boolean isforeign() {
-        return isforeign;
-    }
-
-    @Override
-    public int getAcctNum() {
-        return acctnum;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    @Override
-    public boolean isForeign() {
-        return isforeign;
-    }
-
-    @Override
-    public void setForeign(boolean isforeign) {
-            this.isforeign = isforeign;
-    }
-
-
-    public void deposit(int amt){
-        balance += amt;
-    }
     @Override
         public boolean hasEnoughCollateral(int amt){
         return balance >= amt / 2;
@@ -61,4 +34,14 @@ public class SavingsAccount implements BankAccount{
          else
             return bal1-bal2;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        SavingsAccount that = (SavingsAccount) o;
+        return getAcctNum() == that.getAcctNum();
+    }
+
+
 }
