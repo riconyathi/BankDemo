@@ -15,6 +15,22 @@ public class SavingsAccount extends AbstractBankAccount{
         public boolean hasEnoughCollateral(int amt){
         return balance >= amt / 2;
     }
+
+    @Override
+    protected double collateralRatio() {
+        return 1.0 / 2.0;
+    }
+
+    @Override
+    protected String accountType() {
+        return "Savings";
+    }
+
+    @Override
+    protected double interestRate() {
+        return 0.01;
+    }
+
     @Override
     public String toString(){
        return "Savings Account "+ acctnum + ": balance=" + balance + ", is "+

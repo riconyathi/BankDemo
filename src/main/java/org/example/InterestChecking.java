@@ -13,6 +13,16 @@ public class InterestChecking extends CheckingAccount {
 
     }
 
+    @Override
+    protected String accountType() {
+        return "Interest Checking";
+    }
+
+    @Override
+    protected double interestRate() {
+        return 0.0;
+    }
+
     public void addInterest(){
         int newbalance = (int) (getBalance() * rate);
         deposit(newbalance);

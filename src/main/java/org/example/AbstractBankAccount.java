@@ -53,7 +53,25 @@ public abstract class AbstractBankAccount implements BankAccount {
     }
 
     @Override
-    public abstract boolean hasEnoughCollateral(int loanamt);
-    public abstract String toString();
-    public abstract void addInterest();
+    public  boolean hasEnoughCollateral(int loanamt){
+       double ratio = collateralRatio();
+       return balance >= loanamt * ratio;
+    }
+
+    public  String toString(){
+        String acctype = accountType();
+        return acctype + " account "+ acctnum
+                + " : balance="+ balance + ", is " +
+                (isforeign ? "foreign" : "domestic");
+    }
+
+    public void addInterest() {
+        balance += (int) (balance * interestRate());
+    }
+
+    protected abstract double collateralRatio();
+
+    protected abstract String accountType();
+
+    protected abstract double interestRate();
 }
