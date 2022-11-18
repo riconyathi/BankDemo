@@ -9,7 +9,7 @@ public  class RegularChecking extends CheckingAccount{
     public String toString() {
         return "Regular checking account "+ acctnum
                 + ": balance="+ balance + ", is " +
-                (isforeign ? "foreign" : "domestic");
+                (isForeign() ? "foreign" : "domestic");
     }
 
     @Override
